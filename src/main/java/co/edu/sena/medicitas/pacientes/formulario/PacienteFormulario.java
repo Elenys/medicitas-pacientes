@@ -55,7 +55,7 @@ public class PacienteFormulario {
 
     @NotBlank(message = "El correo es obligatorio")
     @Size(max = 150, message = "El correo no puede superar 150 caracteres")
-    @Email(regexp = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", message = "Escriba un correo válido, por ejemplo nombre@correo.com")
+    @Email(regexp = "^$|^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", message = "Escriba un correo válido, por ejemplo nombre@correo.com")
     private String correo;
 
     @Pattern(regexp = "^$|^3\\d{9}$", message = "El celular debe tener 10 dígitos y empezar por 3")

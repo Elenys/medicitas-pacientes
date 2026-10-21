@@ -61,9 +61,11 @@ class PacienteFormularioTest {
         PacienteFormulario formulario = PacientePrueba.formularioValido();
         formulario.setApellidos("");
         formulario.setNumeroDocumento("");
-        assertThat(validador.validate(formulario)).hasSize(2)
+        formulario.setCorreo("");
+        assertThat(validador.validate(formulario)).hasSize(3)
                 .extracting(ConstraintViolation::getMessage)
-                .containsExactlyInAnyOrder("Los apellidos son obligatorios", "El número de documento es obligatorio");
+                .containsExactlyInAnyOrder("Los apellidos son obligatorios", "El número de documento es obligatorio",
+                        "El correo es obligatorio");
     }
 
     @ParameterizedTest(name = "documento «{0}» se rechaza")
