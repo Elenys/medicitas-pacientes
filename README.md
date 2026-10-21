@@ -103,3 +103,5 @@ MEDICITAS_DB_URL=jdbc:postgresql://servidor:5432/medicitas MEDICITAS_DB_USUARIO=
 - `MedicitasPacientesApplicationTests` (1): la aplicación arranca.
 
 Las pruebas que usan la base corren dentro de una transacción que se revierte: la base queda igual.
+
+Las historias de usuario, las pruebas de validación con sus pantallazos están en [docs/pruebas](docs/pruebas/README.md).
