@@ -1,0 +1,53 @@
+/* MediCitas · estilos del módulo de pacientes (colores del sistema de diseño del proyecto) */
+:root { --azul: #1565C0; --verde: #2E7D32; --verde-claro: #E8F5E9; --rojo: #C62828; --rojo-claro: #FFEBEE;
+        --ambar-claro: #FFF8E1; --fondo: #F5F5F5; --borde: #E0E0E0; --texto: #333; --gris: #757575; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; color: var(--texto); background: var(--fondo); }
+.barra { display: flex; align-items: center; gap: 20px; padding: 14px 32px; background: #fff; border-bottom: 1px solid var(--borde); }
+.logo { font-size: 22px; font-weight: 700; color: var(--azul); text-decoration: none; }
+.seccion { color: var(--gris); }
+.contenido { max-width: 1040px; margin: 0 auto; padding: 28px 24px 48px; }
+.encabezado { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+h1 { font-size: 26px; margin: 8px 0 20px; }
+.boton { display: inline-block; padding: 9px 16px; border-radius: 8px; border: 1px solid transparent; font: inherit;
+         font-weight: 600; font-size: 14px; text-decoration: none; cursor: pointer; }
+.primario { background: var(--azul); color: #fff; }
+.secundario { background: #fff; color: var(--azul); border-color: var(--azul); }
+.peligro { background: var(--rojo); color: #fff; }
+.exito-boton { background: var(--verde); color: #fff; }
+.alerta { padding: 12px 16px; border-radius: 8px; border: 1px solid; }
+.exito { background: var(--verde-claro); border-color: var(--verde); color: #1B5E20; }
+.error { background: var(--rojo-claro); border-color: #E53935; color: #B71C1C; }
+.aviso { background: var(--ambar-claro); border-color: #F9A825; margin: 12px 0; }
+.aviso code { font-size: 18px; background: #fff; padding: 2px 8px; border-radius: 4px; }
+.buscador { display: flex; gap: 10px; align-items: center; margin: 16px 0; flex-wrap: wrap; }
+.buscador input { flex: 1 1 320px; padding: 9px 12px; border: 1px solid var(--borde); border-radius: 8px; font: inherit; }
+.tabla { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--borde); }
+.tabla caption { text-align: left; color: var(--gris); padding: 8px 0; }
+.tabla th, .tabla td { padding: 11px 12px; border-top: 1px solid var(--borde); text-align: left; }
+.tabla thead th { background: var(--fondo); font-size: 12px; text-transform: uppercase; color: var(--gris); }
+.estado { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid; }
+.activo { color: #1B5E20; background: var(--verde-claro); border-color: var(--verde); }
+.inactivo { color: #B71C1C; background: var(--rojo-claro); border-color: #E53935; }
+.vacio { padding: 24px; background: #fff; border: 1px dashed var(--borde); border-radius: 8px; color: var(--gris); }
+.formulario { background: #fff; padding: 8px 24px 24px; border: 1px solid var(--borde); border-radius: 8px; }
+fieldset { border: 0; padding: 0; margin: 16px 0 0; }
+legend { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.campo { display: grid; gap: 5px; align-content: start; }
+.campo label { font-weight: 600; font-size: 14px; }
+.campo input, .campo select { padding: 10px 12px; border: 1px solid var(--borde); border-radius: 8px; font: inherit; background: #fff; }
+.campo input:focus, .campo select:focus { outline: 3px solid rgba(30,136,229,.35); border-color: #1E88E5; }
+.campo .invalido { border-color: #E53935; background: #FFF8F8; }
+.error-campo { margin: 0; color: #B71C1C; font-size: 13px; }
+.error-campo:empty { display: none; }
+.opcional { font-weight: 400; color: var(--gris); }
+.botones { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.botones form { margin: 0; }
+.volver { color: var(--azul); font-weight: 600; text-decoration: none; }
+.tarjeta { background: #fff; padding: 20px 24px; border: 1px solid var(--borde); border-radius: 8px; }
+.datos { display: grid; grid-template-columns: 200px 1fr; gap: 10px 20px; margin: 0; }
+.datos dt { color: var(--gris); } .datos dd { margin: 0; font-weight: 600; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.pie { text-align: center; color: var(--gris); font-size: 13px; padding: 20px; }
+@media (max-width: 700px) { .dos, .datos { grid-template-columns: 1fr; } }

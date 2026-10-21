@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabeza(${edicion} ? 'Editar paciente' : 'Registrar paciente')}"></head>
+<body>
+<header th:replace="~{fragmentos :: barra}"></header>
+<main class="contenido">
+  <a class="volver" th:href="${edicion} ? @{/pacientes/{id}(id=${idPaciente})} : @{/pacientes}">◀ Volver</a>
+  <h1 th:text="${edicion} ? 'Editar paciente' : 'Registrar paciente'">Registrar paciente</h1>
+
+  <p class="alerta error" role="alert" th:if="${#fields.hasErrors('${formulario.*}')}">
+    Revise los campos marcados: hay datos que no cumplen las reglas.
+  </p>
+
+  <!-- novalidate: las reglas las aplica el servidor (Bean Validation), así se ven todos los mensajes -->
+  <form class="formulario" method="post" novalidate th:object="${formulario}"
+        th:action="${edicion} ? @{/pacientes/{id}(id=${idPaciente})} : @{/pacientes}">
+
+    <fieldset>
+      <legend>Identificación</legend>
+      <div class="dos">
+        <div class="campo">
+          <label for="tipoDocumento">Tipo de documento</label>
+          <select id="tipoDocumento" th:field="*{tipoDocumento}" th:classappend="${#fields.hasErrors('tipoDocumento')} ? 'invalido'">
+            <option value="">Seleccione…</option>
+            <option th:each="t : ${tiposDocumento}" th:value="${t}" th:text="${t.etiqueta}"></option>
+          </select>
+          <p class="error-campo" th:errors="*{tipoDocumento}"></p>
+        </div>
+        <div class="campo">
+          <label for="numeroDocumento">Número de documento</label>
+          <input id="numeroDocumento" th:field="*{numeroDocumento}" inputmode="numeric" th:classappend="${#fields.hasErrors('numeroDocumento')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{numeroDocumento}"></p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Datos personales</legend>
+      <div class="dos">
+        <div class="campo">
+          <label for="nombres">Nombres</label>
+          <input id="nombres" th:field="*{nombres}" autocomplete="given-name" th:classappend="${#fields.hasErrors('nombres')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{nombres}"></p>
+        </div>
+        <div class="campo">
+          <label for="apellidos">Apellidos</label>
+          <input id="apellidos" th:field="*{apellidos}" autocomplete="family-name" th:classappend="${#fields.hasErrors('apellidos')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{apellidos}"></p>
+        </div>
+        <div class="campo">
+          <label for="fechaNacimiento">Fecha de nacimiento</label>
+          <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" th:classappend="${#fields.hasErrors('fechaNacimiento')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{fechaNacimiento}"></p>
+        </div>
+        <div class="campo">
+          <label for="genero">Género</label>
+          <select id="genero" th:field="*{genero}" th:classappend="${#fields.hasErrors('genero')} ? 'invalido'">
+            <option value="">Seleccione…</option>
+            <option th:each="g : ${generos}" th:value="${g}" th:text="${g.etiqueta}"></option>
+          </select>
+          <p class="error-campo" th:errors="*{genero}"></p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Contacto</legend>
+      <div class="dos">
+        <div class="campo">
+          <label for="correo">Correo</label>
+          <input type="email" id="correo" th:field="*{correo}" autocomplete="email" th:classappend="${#fields.hasErrors('correo')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{correo}"></p>
+        </div>
+        <div class="campo">
+          <label for="telefono">Celular <span class="opcional">(opcional)</span></label>
+          <input type="tel" id="telefono" th:field="*{telefono}" inputmode="numeric" th:classappend="${#fields.hasErrors('telefono')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{telefono}"></p>
+        </div>
+        <div class="campo">
+          <label for="direccion">Dirección <span class="opcional">(opcional)</span></label>
+          <input id="direccion" th:field="*{direccion}" th:classappend="${#fields.hasErrors('direccion')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{direccion}"></p>
+        </div>
+        <div class="campo">
+          <label for="eps">EPS <span class="opcional">(opcional)</span></label>
+          <input id="eps" th:field="*{eps}" th:classappend="${#fields.hasErrors('eps')} ? 'invalido'">
+          <p class="error-campo" th:errors="*{eps}"></p>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="botones">
+      <a class="boton secundario" th:href="@{/pacientes}">Cancelar</a>
+      <button type="submit" class="boton primario" th:text="${edicion} ? 'Guardar cambios' : 'Registrar paciente'">Registrar</button>
+    </div>
+  </form>
+</main>
+<footer th:replace="~{fragmentos :: pie}"></footer>
+</body>
+</html>

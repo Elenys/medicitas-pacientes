@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabeza('Pacientes')}"></head>
+<body>
+<header th:replace="~{fragmentos :: barra}"></header>
+<main class="contenido">
+  <div class="encabezado">
+    <h1>Pacientes</h1>
+    <a class="boton primario" th:href="@{/pacientes/nuevo}">+ Registrar paciente</a>
+  </div>
+
+  <p class="alerta exito" role="status" th:if="${mensaje}" th:text="${mensaje}"></p>
+  <p class="alerta error" role="alert" th:if="${error}" th:text="${error}"></p>
+
+  <form class="buscador" method="get" th:action="@{/pacientes}" role="search">
+    <label for="buscar" class="oculto">Buscar paciente</label>
+    <input type="search" id="buscar" name="buscar" th:value="${buscar}" placeholder="Buscar por nombre, documento o correo">
+    <button type="submit" class="boton secundario">Buscar</button>
+    <a th:if="${!#strings.isEmpty(buscar)}" th:href="@{/pacientes}">Ver todos</a>
+  </form>
+
+  <p class="vacio" th:if="${#lists.isEmpty(pacientes)}">No hay pacientes que coincidan con la búsqueda.</p>
+
+  <table class="tabla" th:unless="${#lists.isEmpty(pacientes)}">
+    <caption th:text="${#lists.size(pacientes)} + ' paciente(s)'"></caption>
+    <thead>
+      <tr><th scope="col">Paciente</th><th scope="col">Documento</th><th scope="col">Correo</th>
+          <th scope="col">Edad</th><th scope="col">Estado</th><th scope="col"></th></tr>
+    </thead>
+    <tbody>
+      <tr th:each="p : ${pacientes}">
+        <th scope="row" th:text="${p.usuario.apellidos} + ', ' + ${p.usuario.nombres}"></th>
+        <td th:text="${p.usuario.tipoDocumento} + ' ' + ${p.usuario.numeroDocumento}"></td>
+        <td th:text="${p.usuario.correo}"></td>
+        <td th:text="${p.edad} + ' años'"></td>
+        <td><span class="estado" th:classappend="${p.usuario.activo} ? 'activo' : 'inactivo'"
+                  th:text="${p.usuario.activo} ? 'Activo' : 'Inactivo'"></span></td>
+        <td><a class="boton secundario" th:href="@{/pacientes/{id}(id=${p.id})}">Ver</a></td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+<footer th:replace="~{fragmentos :: pie}"></footer>
+</body>
+</html>

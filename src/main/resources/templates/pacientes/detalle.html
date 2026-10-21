@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabeza('Paciente')}"></head>
+<body>
+<header th:replace="~{fragmentos :: barra}"></header>
+<main class="contenido" th:with="u=${paciente.usuario}">
+  <a class="volver" th:href="@{/pacientes}">◀ Volver al listado</a>
+  <div class="encabezado">
+    <h1 th:text="${u.nombreCompleto}">Paciente</h1>
+    <span class="estado" th:classappend="${u.activo} ? 'activo' : 'inactivo'" th:text="${u.activo} ? 'Activo' : 'Inactivo'"></span>
+  </div>
+
+  <p class="alerta exito" role="status" th:if="${mensaje}" th:text="${mensaje}"></p>
+  <div class="alerta aviso" th:if="${claveTemporal}">
+    <strong>Contraseña temporal:</strong> <code th:text="${claveTemporal}"></code><br>
+    Entréguela al paciente: se muestra solo esta vez y deberá cambiarla al ingresar.
+  </div>
+
+  <section class="tarjeta">
+    <dl class="datos">
+      <dt>Documento</dt><dd th:text="${u.tipoDocumento.etiqueta} + ' ' + ${u.numeroDocumento}"></dd>
+      <dt>Fecha de nacimiento</dt><dd th:text="${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')} + ' (' + ${paciente.edad} + ' años)'"></dd>
+      <dt>Género</dt><dd th:text="${paciente.genero.etiqueta}"></dd>
+      <dt>Correo</dt><dd th:text="${u.correo}"></dd>
+      <dt>Celular</dt><dd th:text="${u.telefono} ?: '—'"></dd>
+      <dt>Dirección</dt><dd th:text="${paciente.direccion} ?: '—'"></dd>
+      <dt>EPS</dt><dd th:text="${paciente.eps} ?: '—'"></dd>
+      <dt>Registrado</dt><dd th:text="${u.creadoEn} ? ${#temporals.format(u.creadoEnLocal, 'dd/MM/yyyy HH:mm')} : '—'"></dd>
+    </dl>
+    <div class="botones">
+      <form method="post" th:action="@{/pacientes/{id}/estado(id=${paciente.id})}">
+        <button type="submit" class="boton" th:classappend="${u.activo} ? 'peligro' : 'exito-boton'"
+                th:text="${u.activo} ? 'Desactivar cuenta' : 'Activar cuenta'"></button>
+      </form>
+      <a class="boton primario" th:href="@{/pacientes/{id}/editar(id=${paciente.id})}">Editar datos</a>
+    </div>
+  </section>
+</main>
+<footer th:replace="~{fragmentos :: pie}"></footer>
+</body>
+</html>
