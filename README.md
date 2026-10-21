@@ -49,6 +49,21 @@ exponen al formulario: el controlador recibe un `PacienteFormulario` validado y 
 | `/pacientes/{id}` | POST | Guarda los cambios |
 | `/pacientes/{id}/estado` | POST | Activa o desactiva la cuenta |
 
+## API REST (JSON)
+
+Usada por el front-end en React [medicitas-pacientes-web](https://github.com/Elenys/medicitas-pacientes-web).
+
+| Ruta | Método | Respuesta |
+|---|---|---|
+| `/api/pacientes?buscar=` | GET | 200 · lista de pacientes |
+| `/api/pacientes/{id}` | GET | 200 · paciente / 404 |
+| `/api/pacientes` | POST | 201 · paciente + `claveTemporal` (cabecera `Location`) / 400 / 409 |
+| `/api/pacientes/{id}` | PUT | 200 · paciente actualizado / 400 / 404 / 409 |
+| `/api/pacientes/{id}/estado` | PATCH | 200 · paciente con el estado cambiado |
+| `/api/catalogos` | GET | 200 · tipos de documento y géneros |
+
+Los errores responden `{"estado": 400, "mensaje": "…", "errores": {"campo": "mensaje"}}`. Nunca se expone el hash de la contraseña.
+
 ## Validaciones
 
 | Campo | Regla |
@@ -95,11 +110,12 @@ MEDICITAS_DB_URL=jdbc:postgresql://servidor:5432/medicitas MEDICITAS_DB_USUARIO=
 ./mvnw test
 ```
 
-44 pruebas automáticas:
+52 pruebas automáticas:
 
 - `PacienteFormularioTest` (29): reglas de validación de cada campo, sin base de datos.
 - `PacienteServicioTest` (8): registro, cifrado BCrypt, normalización, duplicados, búsqueda, edición y estado contra PostgreSQL.
 - `PacienteControladorTest` (6): rutas, vistas, mensajes de error y redirecciones con MockMvc.
+- `PacienteApiControladorTest` (8): códigos HTTP (200, 201, 400, 404, 409) y cuerpo JSON de la API.
 - `MedicitasPacientesApplicationTests` (1): la aplicación arranca.
 
 Las pruebas que usan la base corren dentro de una transacción que se revierte: la base queda igual.
